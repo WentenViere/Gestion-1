@@ -1,0 +1,14 @@
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\bin\Debug\net8.0\GestionTrabajo1.exe
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\bin\Debug\net8.0\GestionTrabajo1.deps.json
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\bin\Debug\net8.0\GestionTrabajo1.runtimeconfig.json
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\bin\Debug\net8.0\GestionTrabajo1.dll
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\bin\Debug\net8.0\GestionTrabajo1.pdb
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\obj\Debug\net8.0\GestionTrabajo1.GeneratedMSBuildEditorConfig.editorconfig
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\obj\Debug\net8.0\GestionTrabajo1.AssemblyInfoInputs.cache
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\obj\Debug\net8.0\GestionTrabajo1.AssemblyInfo.cs
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\obj\Debug\net8.0\GestionTrabajo1.csproj.CoreCompileInputs.cache
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\obj\Debug\net8.0\GestionTrabajo1.dll
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\obj\Debug\net8.0\refint\GestionTrabajo1.dll
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\obj\Debug\net8.0\GestionTrabajo1.pdb
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\obj\Debug\net8.0\GestionTrabajo1.genruntimeconfig.cache
+D:\Datos\VisualStudio\GestionTrabajo1\GestionTrabajo1\obj\Debug\net8.0\ref\GestionTrabajo1.dll
