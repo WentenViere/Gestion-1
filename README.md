@@ -3,7 +3,6 @@ Un simple inicio de sesión para administradores e invitados de un sistema
 
 ## Casos de uso 
 <img src="Casos de uso/Caso de uso Login.png">
-<img src="Casos de uso/Caso de uso Crear Cuenta.png">
 
 ---
 
@@ -646,6 +645,51 @@ El administrador va a tener mayores permisos a un futuro sistema. Por el momento
 El código verifica primero si el e-mail ingresado es válido, luego ve que el usuario sea un usuario registrado en el sistema y comprueba que el usuario ingresado tenga la misma contraseña que el usuario ingresado en el sistema. Si cualquiera de las condiciones mencionadas falla imprime un mensaje de error evitando el inicio de sesión.
 
 ### Crear Usuario
+
+## Casos de uso 
+<img src="Casos de uso/Caso de uso Crear Cuenta.png">
+
+---
+
+### Nombre del caso de uso:
+Crear usuario
+
+---
+
+### Precondición: 
+El usuario a crear no existe en el sistema.
+
+---
+
+### Poscondición: 
+El usuario es creado con éxito.
+
+---
+
+### Flujo principal:
+  1. El sistema solicita un e-mail para el nuevo usuario.
+  2. Usuario ingresa un e-mail.
+  3. El sistema verifica que el e-mail sea válido y que no exista un usuario con ese mismo e-mail.
+  4. El sistema solicita una contraseña.
+  5. El usuario ingresa una contraseña.
+  6. El sistema verifica la contraseña.
+  7. Inicio de sesión exitoso.
+  8. El sistema crea un nuevo usuario con el mismo e-mail y la contraseña ingresada.
+  9. Fin del caso de uso.
+
+---
+
+### Flujo alternativo A:
+  5.1 El e-mail que ingresó el usuario no es válido o ya existe un usuario con ese e-mail y el sistema emite un mensaje de error.  
+  6. Fin del caso de uso
+  
+---
+### Flujo alternativo B:
+  8.1 La contraseña que ingresó el usuario no es válida y el sistema emite un error.  
+  9. Fin del caso de uso
+  
+---
+
 Al iniciar sesión correctamente se mostrará el botón Crear usuario.
 
 <img src="inicioDeSesionExitoso.PNG">
