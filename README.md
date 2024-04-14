@@ -548,7 +548,7 @@ public void AgregarUsuario(Usuario user)
 }
 ```
 
-Finalmente, AgregarUsuario y EliminarUsuario. Amos recorren la lista en búsqueda de un usuario y lo agrega si no existe en el caso de AgregarUsuario o lo elimina si lo encuentra en EliminarUsuario.
+Finalmente, AgregarUsuario y EliminarUsuario. Ambos recorren la lista en búsqueda de un usuario y lo agrega si no existe en el caso de AgregarUsuario o lo elimina si lo encuentra en EliminarUsuario.
 
 ---
 
@@ -598,7 +598,7 @@ if (chkInvitado.Checked)
 ```
 ```
 
-El invitado es el usuario sin contraseña y poco acceso a un futuro sistema. Como tal, sólo tenemos que solicitar un e-mail, verificarlo, y crear un Usuario temporal con ése e-mail dámdole acceso En el caso
+El invitado es el usuario sin contraseña y poco acceso a un futuro sistema. Como tal, sólo tenemos que solicitar un e-mail, verificarlo, y crear un Usuario temporal con ése e-mail dándole acceso. En el caso
 contrario, le negamos el acceso.
 
 ### Caso 2: Admin
@@ -642,11 +642,11 @@ else
 }
 ```
 
-El administrador va a tener mayores permisos a un futuro sistema. Por el momento únicamente puede crear a nuevos usuarios de tipo administrador.
-El código verifica primero si el e-mail ingresado es válido, luego ve que el usuario sea un usuario registrado en el sistema y comprueba que el usuario ingresado tenga la misma contraseña que el usuario ingresado en el sistema. Si cualquiera de las condiciones mencionadas falla da un error evitando el log in.
+El administrador va a tener mayores permisos a un futuro sistema. Por el momento únicamente puede crear nuevos usuarios de tipo administrador.
+El código verifica primero si el e-mail ingresado es válido, luego ve que el usuario sea un usuario registrado en el sistema y comprueba que el usuario ingresado tenga la misma contraseña que el usuario ingresado en el sistema. Si cualquiera de las condiciones mencionadas falla imprime un mensaje de error evitando el inicio de sesión.
 
 ### Crear Usuario
-Al iniciar sesión correctamente se mostrará el botón Crear usuario
+Al iniciar sesión correctamente se mostrará el botón Crear usuario.
 
 <img src="inicioDeSesionExitoso.PNG">
 
@@ -666,7 +666,7 @@ Al crear usuario se muestra lo siguiente
 
 <img src="cuentaCreada.PNG">
 
-Si se llegó a ésta instancia del programa se completó el caso de uso Crear Usuario
+Si se llegó a ésta instancia del programa se completó el caso de uso Crear Usuario.
 
 ## Referencias
 Clase "MailAddress"
