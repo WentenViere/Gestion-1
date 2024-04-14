@@ -586,7 +586,7 @@ Los e-mail de los administradores son definidos en una lista al inicio de la eje
 Le pedimos al usuario que elija entre ingresar como Admin o Invitado. El checkbox hace que se cambie el inicio de sesión entre Admin o Invitado.
 
 ### Caso 1: invitado
-
+<img src="invitado.PNG">
 ```C#
 if (chkInvitado.Checked)
 {
@@ -601,73 +601,50 @@ El invitado es el usuario sin contraseña y poco acceso a un futuro sistema. Com
 contrario, le negamos el acceso.
 
 ### Caso 2: Admin
-
+<img src="imagenDeInicioDeSesion.png">
 ```C#
-case "Admin" or "admin":
-        Console.Clear();
-        Console.WriteLine("INICIO DE SESIÓN");
-        Console.WriteLine("Ingrese su e-mail: ");
-        string mail1 = Console.ReadLine();
-        if (verificadorEmail(mail1))//comprobamos que el email es correcto
+if (verificadorEmail(txtEmail.Text))
+{
+    if (chkInvitado.Checked)
+    {
+        lblEstadoinicio.Text = "Inicio de sesión exitoso";
+        lblEstadoinicio.Visible = true;
+        Usuario invitado = new Usuario(txtEmail.Text, "");
+    }
+    else
+    {
+        if (listaUsuarios.ExisteUsuario(txtEmail.Text))
         {
-            bool comprobador = false;
-            Usuario user = new Usuario();
-            foreach (Usuario usuario in usuarios)
+            if ((listaUsuarios.BuscarUsuario(txtEmail.Text).Contraseña).Equals(txtContraseña.Text))
             {
-                if (usuario.Email == mail1)
-                {
-                   comprobador=true;
-                   user = usuario;
-                }
-            }
-
-            if (comprobador == true)
-            {
-                Console.WriteLine("Ingrese contraseña: ");
-                string cont = Console.ReadLine();
-                if (user.ComprobadorDeContrasenia(cont))
-                {
-                    Console.WriteLine("Ingresó correctamente");
-                }
-                else
-                {
-                    Console.WriteLine("La contraseña es inválida");
-                }
+                lblEstadoinicio.Visible = true;
+                lblEstadoinicio.Text = "Inicio de sesión exitoso";
+                btnCrearUsuario.Visible = true;
             }
             else
             {
-                Console.WriteLine("No se encontró el usuario");
+                lblResultado.Visible = true;
+                lblResultado.Text = "La contraseña es incorrecta";
             }
         }
         else
         {
-            Console.WriteLine("El e-mail no es válido");
+            lblResultado.Text = "El usuario no existe";
+            lblResultado.Visible = true;
         }
-        break;
-```
-
-El administrador va a tener mayores permisos a un futuro sistema. Nosotros le exigimos una contraseña con las características ya mencionadas para mayor seguridad .
-El código es muy similar; Sólo hay que verificar la contraseña.
-
-```C#
-if (comprobador == true)
-{
-    Console.WriteLine("Ingrese contraseña: ");
-    string cont = Console.ReadLine();
-    if (user.ComprobadorDeContrasenia(cont))
-    {
-        Console.WriteLine("Ingresó correctamente");
-    }
-    else
-    {
-        Console.WriteLine("La contraseña es inválida");
     }
 }
 else
 {
-    Console.WriteLine("No se encontró el usuario");
+    lblResultado.Text = "El email es incorrecto.";
+    lblResultado.Visible = true;
 }
 ```
+
+El administrador va a tener mayores permisos a un futuro sistema. Por el momento únicamente puede crear a nuevos usuarios de tipo administrador.
+El código verifica primero si el e-mail ingresado es válido, luego ve que el usuario sea un usuario registrado en el sistema y comprueba que el usuario ingresado tenga la misma contraseña que el usuario ingresado en el sistema. Si cualquiera de las condiciones mencionadas falla da un error evitando el log in.
+
+### Crear Usuario
 
 
 
