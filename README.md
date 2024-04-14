@@ -581,63 +581,23 @@ En esta sección de código se inicializan los componentes gráficos. Algunos lo
 Los e-mail de los administradores son definidos en una lista al inicio de la ejecución. Sólo estos e-mail son válidos para el ingreso como administrador.
 
 ### Solicitud de información
+<img src="imagenDeInicioDeSesion.png">
 
-```C#
-static bool verificadorEmail(string email)
-{
-    try
-    {
-        MailAddress mail = new MailAddress(email);
-        return true;
-    }
-    catch (Exception e)
-    {
-        return false;
-    }
-}
-
-Console.WriteLine("INICIO DE SESIÓN");
-Console.WriteLine("¿Quiere iniciar sesión como Invitado o como Admin?");
-string op = Console.ReadLine();
-switch (op)
-{
-    case "Invitado" or "invitado":
-        ...
-        break;
-    case "Admin" or "admin":
-       ...
-        break;
-
-    default:
-        Console.WriteLine("Ingrese una opción válida");
-        break;
-}
-```
-Le pedimos al usuario que elija entre ingresar como Admin o Invitado. El checkbox nos facilita la escritura de código para cada usuario.
-
-El método "verificadorEmail" nos servirá más adelante, pero compara el e-mail ingresado con un objeto de tipo Mail. Nos permite saber si es una dirección válida.
+Le pedimos al usuario que elija entre ingresar como Admin o Invitado. El checkbox hace que se cambie el inicio de sesión entre Admin o Invitado.
 
 ### Caso 1: invitado
 
 ```C#
-case "Invitado" or "invitado":
-        Console.Clear();
-        Console.WriteLine("INICIO DE SESIÓN");
-        Console.WriteLine("Ingrese su e-mail para iniciar sesión");
-        string mail = Console.ReadLine();
-        if (verificadorEmail(mail))
-        {
-            Console.WriteLine("Iniciaste sesión como invitado correctamente");
-        }
-        else
-        {
-            Console.WriteLine("El e-mail no es válido");
-        }
+if (chkInvitado.Checked)
+{
+    lblEstadoinicio.Text = "Inicio de sesión exitoso";
+    lblEstadoinicio.Visible = true;
+    Usuario invitado = new Usuario(txtEmail.Text, "");
+}
 
-        break;
 ```
 
-El invitado es el usuario sin contraseña y poco acceso a un futuro sistema. Como tal, sólo tenemos que solicitar un e-mail, verificarlo y si es válido, le damos acceso. En el caso
+El invitado es el usuario sin contraseña y poco acceso a un futuro sistema. Como tal, sólo tenemos que solicitar un e-mail, verificarlo, y crear un Usuario temporal con ése e-mail dámdole acceso En el caso
 contrario, le negamos el acceso.
 
 ### Caso 2: Admin
