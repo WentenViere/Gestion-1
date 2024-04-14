@@ -613,8 +613,7 @@ switch (op)
         break;
 }
 ```
-Le pedimos al usuario que elija entre ingresar como Admin o Invitado. El checkbox nos facilita la escritura de código para cada usuario, además de que nos permite agregar un caso 
-por si no se escribió correctamente lo solicitado.
+Le pedimos al usuario que elija entre ingresar como Admin o Invitado. El checkbox nos facilita la escritura de código para cada usuario.
 
 El método "verificadorEmail" nos servirá más adelante, pero compara el e-mail ingresado con un objeto de tipo Mail. Nos permite saber si es una dirección válida.
 
@@ -687,7 +686,7 @@ case "Admin" or "admin":
         break;
 ```
 
-El administrador va a tener mayores permisos a un futuro sistema. Nosotros le exigimos para mayor seguridad una contraseña con características ya mencionadas.
+El administrador va a tener mayores permisos a un futuro sistema. Nosotros le exigimos una contraseña con las características ya mencionadas para mayor seguridad .
 El código es muy similar; Sólo hay que verificar la contraseña.
 
 ```C#
@@ -721,5 +720,6 @@ https://learn.microsoft.com/en-us/dotnet/api/system.net.mail.mailaddress?view=ne
 - Federico González
 - Máximo Castro
 - Santiago Hornos
+- Lucas Rivero
 - Wenten Viere
-- 
+  
