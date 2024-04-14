@@ -541,6 +541,12 @@ else
 El administrador va a tener mayores permisos a un futuro sistema. Por el momento únicamente puede crear nuevos usuarios de tipo administrador.
 El código verifica primero si el e-mail ingresado es válido, luego ve que el usuario sea un usuario registrado en el sistema y comprueba que el usuario ingresado tenga la misma contraseña que el usuario ingresado en el sistema. Si cualquiera de las condiciones mencionadas falla imprime un mensaje de error evitando el inicio de sesión.
 
+Al iniciar sesión correctamente se mostrará el botón Crear usuario.
+
+<img src="inicioDeSesionExitoso.PNG">
+
+Éste botón abrirá el la ventana para crear cuentas a la que sólo pueden acceder administradores, la ventana muestra lo siguiente
+
 ## Crear Usuario
 
 ### Casos de uso 
@@ -586,8 +592,10 @@ El usuario es creado con éxito.
   9. Fin del caso de uso
   
 ---
+## Muestra de código
 
 ### Ventana para crear una cuenta
+
 ```C#
 using System;
 using System.Collections.Generic;
@@ -692,13 +700,6 @@ namespace Login_Gestion
 }
 ```
 
-Al iniciar sesión correctamente se mostrará el botón Crear usuario.
-
-<img src="inicioDeSesionExitoso.PNG">
-
-Éste botón abrirá el la ventana para crear cuentas a la que sólo pueden acceder administradores, la ventana muestra lo siguiente
-
-<img src="ventanaCrearUsuariosPrimeraFase.PNG">
 
 ## Analicemos esto
 
@@ -733,6 +734,24 @@ En ésta ventana el administrador podrá crear nuevos usuarios con e-mail y cont
 La segunda fase del programa se ve de la siguiente forma
 
 <img src="ventanaCrearUsuariosSegundaFase.PNG">
+
+        private void btnCrearCuenta_Click(object sender, EventArgs e)
+        {
+            Usuario user = new Usuario();
+            user.Email = txtEmail.Text;
+            if (user.ComprobadorDeContrasenia(txtContraseña.Text))
+            {
+                Usuario usuario = new Usuario(txtEmail.Text, txtContraseña.Text);
+                Form1.listaUsuarios.AgregarUsuario(usuario);
+                lblResultado.Visible = true;
+                lblResultado.Text = "Usuario creado exitosamente.";
+            }
+            else
+            {
+                lblResultado.Visible = true;
+                lblResultado.Text = "Contraseña no válida.";
+            }
+        }
 
 En ésta fase se debe ingresar una contraseña que cumpla los estándares del programa (8 dígitos alfanuméricos y que sea distinto del usuario), el botón ver nos permite ver u ocultar la contraseña ingresada.
 Al dar click al botón Crear usuario se va a comprobar que la contraseña cumpla con los estándares mencionados y en caso de que la contraseña sea correcta se creará el usuario y se guardará en la lista de usuarios. Si la contraseña no cumple con los requerimientos se escribe un mensaje de error avisando de esto.
