@@ -2,7 +2,7 @@
 Un simple inicio de sesión para administradores e invitados de un sistema
 
 ## Casos de uso 
-<img src="Casos de uso/Caso de uso Login.png">
+<img src="Casos de uso/Casos de uso Iniciar Sesión/Caso de uso Login.png">
 
 ---
 
@@ -79,9 +79,52 @@ El invitado ingresa con éxito.
   6. Fin del caso de uso
   
 ---
+
 ---
 
 
+<img src="Casos de uso/Casos de Uso Crear Cuenta/Caso de uso Crear Cuenta.png">
+
+---
+
+### Nombre del caso de uso:
+Crear usuario
+
+---
+
+### Precondición: 
+El usuario a crear no existe en el sistema.
+
+---
+
+### Poscondición: 
+El usuario es creado con éxito.
+
+---
+
+### Flujo principal:
+  1. El sistema solicita un e-mail para el nuevo usuario.
+  2. Usuario ingresa un e-mail.
+  3. El sistema verifica que el e-mail sea válido y que no exista un usuario con ese mismo e-mail.
+  4. El sistema solicita una contraseña.
+  5. El usuario ingresa una contraseña.
+  6. El sistema verifica la contraseña.
+  7. Inicio de sesión exitoso.
+  8. El sistema crea un nuevo usuario con el mismo e-mail y la contraseña ingresada.
+  9. Fin del caso de uso.
+
+---
+
+### Flujo alternativo A:
+  5.1 El e-mail que ingresó el usuario no es válido o ya existe un usuario con ese e-mail y el sistema emite un mensaje de error.  
+  6. Fin del caso de uso
+  
+---
+### Flujo alternativo B:
+  8.1 La contraseña que ingresó el usuario no es válida y el sistema emite un error.  
+  9. Fin del caso de uso
+  
+---
 
 ## Muestra de código
 
@@ -279,6 +322,136 @@ namespace Login_Gestion
 }
 ```
 
+### Ventana de creación de una cuenta
+
+```C#
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net.Mail;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Login_Gestion
+{
+    public partial class Form2 : Form
+    {
+        static bool verificadorEmail(string email)
+        {
+            try
+            {
+                MailAddress mail = new MailAddress(email);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+       
+        public Form2()
+        {
+            InitializeComponent();
+            label2.Visible = false;
+            txtContraseña.Visible = false;
+            lblResultado.Visible = false;
+            btnVer.Visible = false;
+            btnCrearCuenta.Visible = false; 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (btnVer.Text == "Ver")
+            {
+                btnVer.Text = "Ocultar";
+                txtContraseña.PasswordChar = '\0';
+            }
+            else
+            {
+                btnVer.Text = "Ver";
+                txtContraseña.PasswordChar = '·';
+            }
+        }
+
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            lblResultado.Visible = false;
+            if (verificadorEmail(txtEmail.Text) && !Form1.listaUsuarios.ExisteUsuario(txtEmail.Text))
+            {
+                label2.Visible = true;
+                txtContraseña.Visible = true;
+                btnVer.Visible = true;
+                btnCrearCuenta.Visible = true;
+                btnCrear.Visible = false;
+                
+
+            }
+            else
+            {
+                lblResultado.Visible = true;
+                lblResultado.Text = "Error con el Email.";
+
+            }
+            
+
+
+        }
+
+        private void btnCrearCuenta_Click(object sender, EventArgs e)
+        {
+            Usuario user = new Usuario();
+            user.Email = txtEmail.Text;
+            if (user.ComprobadorDeContrasenia(txtContraseña.Text))
+            {
+                Usuario usuario = new Usuario(txtEmail.Text, txtContraseña.Text);
+                Form1.listaUsuarios.AgregarUsuario(usuario);
+                lblResultado.Visible = true;
+                lblResultado.Text = "Usuario creado exitosamente.";
+            }
+            else
+            {
+                lblResultado.Visible = true;
+                lblResultado.Text = "Contraseña no válida.";
+            }
+        }
+    }
+}
+
+private void btnCrear_Click(object sender, EventArgs e)
+        {
+            lblResultado.Visible = false;
+            if (verificadorEmail(txtEmail.Text) && !Form1.listaUsuarios.ExisteUsuario(txtEmail.Text))
+            {
+                label2.Visible = true;
+                txtContraseña.Visible = true;
+                btnVer.Visible = true;
+                btnCrearCuenta.Visible = true;
+                btnCrear.Visible = false;
+                
+
+            }
+            else
+            {
+                lblResultado.Visible = true;
+                lblResultado.Text = "Error con el Email.";
+
+            }
+            
+
+
+        }
+```
+
 
 
 ## Analicemos esto
@@ -452,7 +625,6 @@ Finalmente, AgregarUsuario y EliminarUsuario. Ambos recorren la lista en búsque
 Ahora explicaremos el flujo del programa principal.
 
 
-
 ### Inicialización de los componentes
 
 ```C#
@@ -477,12 +649,14 @@ En esta sección de código se inicializan los componentes gráficos. Algunos lo
 Los e-mail de los administradores son definidos en una lista al inicio de la ejecución. Sólo estos e-mail son válidos para el ingreso como administrador.
 
 ### Solicitud de información
-<img src="imagenDeInicioDeSesion.png">
+<img src="Casos de uso/Casos de uso Iniciar Sesión/imagenDeInicioDeSesion.png">
 
 Le pedimos al usuario que elija entre ingresar como Admin o Invitado. El checkbox hace que se cambie el inicio de sesión entre Admin o Invitado.
 
+---
+
 ### Caso 1: invitado
-<img src="invitado.PNG">
+<img src="Casos de uso/Casos de uso Iniciar Sesión/invitado.PNG">
 
 ```C#
 if (chkInvitado.Checked)
@@ -493,11 +667,12 @@ if (chkInvitado.Checked)
 }
 ```
 
-El invitado es el usuario sin contraseña y poco acceso a un futuro sistema. Como tal, sólo tenemos que solicitar un e-mail, verificarlo, y crear un Usuario temporal con ése e-mail dándole acceso. En el caso
-contrario, le negamos el acceso.
+El invitado es el usuario sin contraseña y poco acceso a un futuro sistema. Como tal, sólo tenemos que solicitar un e-mail, verificarlo, y crear un Usuario temporal con ése e-mail dándole acceso. En el caso contrario, le negamos el acceso.
+
+---
 
 ### Caso 2: Admin
-<img src="imagenDeInicioDeSesion.png">
+<img src="Casos de uso/Casos de uso Iniciar Sesión/imagenDeInicioDeSesion.png">
 
 ```C#
 if (verificadorEmail(txtEmail.Text))
@@ -543,76 +718,16 @@ El código verifica primero si el e-mail ingresado es válido, luego ve que el u
 
 Al iniciar sesión correctamente se mostrará el botón Crear usuario.
 
-<img src="inicioDeSesionExitoso.PNG">
+<img src="Casos de uso/Casos de uso Iniciar Sesión/inicioDeSesionExitoso.PNG">
 
 Éste botón abrirá el la ventana para crear cuentas a la que sólo pueden acceder administradores, la ventana muestra lo siguiente
 
-## Crear Usuario
-
-### Casos de uso 
-<img src="Casos de uso/Caso de uso Crear Cuenta.png">
-
 ---
 
-### Nombre del caso de uso:
-Crear usuario
-
----
-
-### Precondición: 
-El usuario a crear no existe en el sistema.
-
----
-
-### Poscondición: 
-El usuario es creado con éxito.
-
----
-
-### Flujo principal:
-  1. El sistema solicita un e-mail para el nuevo usuario.
-  2. Usuario ingresa un e-mail.
-  3. El sistema verifica que el e-mail sea válido y que no exista un usuario con ese mismo e-mail.
-  4. El sistema solicita una contraseña.
-  5. El usuario ingresa una contraseña.
-  6. El sistema verifica la contraseña.
-  7. Inicio de sesión exitoso.
-  8. El sistema crea un nuevo usuario con el mismo e-mail y la contraseña ingresada.
-  9. Fin del caso de uso.
-
----
-
-### Flujo alternativo A:
-  5.1 El e-mail que ingresó el usuario no es válido o ya existe un usuario con ese e-mail y el sistema emite un mensaje de error.  
-  6. Fin del caso de uso
-  
----
-### Flujo alternativo B:
-  8.1 La contraseña que ingresó el usuario no es válida y el sistema emite un error.  
-  9. Fin del caso de uso
-  
----
-## Muestra de código
-
-### Ventana para crear una cuenta
+### Crear Usuario
 
 ```C#
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Mail;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace Login_Gestion
-{
-    public partial class Form2 : Form
-    {
         static bool verificadorEmail(string email)
         {
             try
@@ -634,11 +749,6 @@ namespace Login_Gestion
             lblResultado.Visible = false;
             btnVer.Visible = false;
             btnCrearCuenta.Visible = false; 
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -679,62 +789,16 @@ namespace Login_Gestion
 
         }
 
-        private void btnCrearCuenta_Click(object sender, EventArgs e)
-        {
-            Usuario user = new Usuario();
-            user.Email = txtEmail.Text;
-            if (user.ComprobadorDeContrasenia(txtContraseña.Text))
-            {
-                Usuario usuario = new Usuario(txtEmail.Text, txtContraseña.Text);
-                Form1.listaUsuarios.AgregarUsuario(usuario);
-                lblResultado.Visible = true;
-                lblResultado.Text = "Usuario creado exitosamente.";
-            }
-            else
-            {
-                lblResultado.Visible = true;
-                lblResultado.Text = "Contraseña no válida.";
-            }
-        }
-    }
-}
 ```
-
-
-## Analicemos esto
-
-```C#
-private void btnCrear_Click(object sender, EventArgs e)
-        {
-            lblResultado.Visible = false;
-            if (verificadorEmail(txtEmail.Text) && !Form1.listaUsuarios.ExisteUsuario(txtEmail.Text))
-            {
-                label2.Visible = true;
-                txtContraseña.Visible = true;
-                btnVer.Visible = true;
-                btnCrearCuenta.Visible = true;
-                btnCrear.Visible = false;
-                
-
-            }
-            else
-            {
-                lblResultado.Visible = true;
-                lblResultado.Text = "Error con el Email.";
-
-            }
-            
-
-
-        }
-```
-        
-En ésta ventana el administrador podrá crear nuevos usuarios con e-mail y contraseña, al tocar el botón Continuar el código va a verificar que el e-mail ingresado sea un e-mail válido, luego en caso de ser válido verifica si el e-mail está sin usar en el programa, en caso de cumplirse ambas condiciones aparecerán el cuadro de texto contraseña, el botón Ver y el botón Crear usuario. En caso de no cumplir las condiciones el programa da un mensaje de error.
+<img src="Casos de uso/Casos de Uso Crear Cuenta/ventanaCrearUsuariosPrimeraFase.PNG">
+      
+En ésta ventana, el administrador podrá crear nuevos usuarios con e-mail y contraseña. Al tocar el botón "Continuar", el código va a verificar que el e-mail ingresado sea válido. Luego, en caso de serlo, verifica si está sin usar en el programa. Si se cumplen ambas condicione,s aparecerán el cuadro de texto contraseña, el botón Ver y el botón Crear usuario. Si no se cumplen las condiciones, el programa da un mensaje de error.
 
 La segunda fase del programa se ve de la siguiente forma
 
 <img src="ventanaCrearUsuariosSegundaFase.PNG">
 
+```C#
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             Usuario user = new Usuario();
@@ -752,15 +816,13 @@ La segunda fase del programa se ve de la siguiente forma
                 lblResultado.Text = "Contraseña no válida.";
             }
         }
-
-En ésta fase se debe ingresar una contraseña que cumpla los estándares del programa (8 dígitos alfanuméricos y que sea distinto del usuario), el botón ver nos permite ver u ocultar la contraseña ingresada.
+```
+En ésta fase, se debe ingresar una contraseña que cumpla los estándares del programa (8 dígitos alfanuméricos y que sea distinto del usuario), el botón ver nos permite ver u ocultar la contraseña ingresada.
 Al dar click al botón Crear usuario se va a comprobar que la contraseña cumpla con los estándares mencionados y en caso de que la contraseña sea correcta se creará el usuario y se guardará en la lista de usuarios. Si la contraseña no cumple con los requerimientos se escribe un mensaje de error avisando de esto.
 
-Al crear usuario se muestra lo siguiente 
+Al crear usuario se muestra lo siguiente: 
 
-<img src="cuentaCreada.PNG">
-
-Si se llegó a ésta instancia del programa se completó el caso de uso Crear Usuario.
+<img src="Casos de uso/Casos de Uso Crear Cuenta/cuentaCreada.PNG">
 
 ## Referencias
 Clase "MailAddress"
