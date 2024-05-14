@@ -796,7 +796,7 @@ En ésta ventana, el administrador podrá crear nuevos usuarios con e-mail y con
 
 La segunda fase del programa se ve de la siguiente forma
 
-<img src="ventanaCrearUsuariosSegundaFase.PNG">
+<img src="Casos de uso/Casos de Uso Crear Cuenta/ventanaCrearUsuariosSegundaFase.PNG">
 
 ```C#
         private void btnCrearCuenta_Click(object sender, EventArgs e)
